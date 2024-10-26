@@ -8,12 +8,21 @@ const characters = await fetch('https://dragonball-api.com/api/characters').then
 ---
 
 <Layout title="Dragon Ball Z Langing">
-	<section class="grid grid-cols-6 gap-4 px-4 py-6">
+	<section
+		class="w-full max-w-[1440px] mx-auto flex flex-wrap justify-center gap-4 px-4 py-6">
 		{
 			characters.items.map((character) => (
-				<article class="dbz-card">
-					<img src={character.image} class="mx-auto h-[160px] w-auto object-contain" />
-					<h2>{character.name}</h2>
+				<article class="dbz-card group">
+					<img
+						src={character.image}
+						class="mx-auto h-[180px] w-auto object-contain group-hover:scale-[1.2] transition-transform duration-300"
+					/>
+					<h2 class="text-lg font-semibold text-black">{character.name}</h2>
+					<ul class="px-1 py-2">
+						<li class="text-sm text-black/90">Ki: {character.ki}</li>
+						<li class="text-sm text-black/90">Ki máximo: {character.maxKi}</li>
+					</ul>
+					<p class="text-sm line-clamp-4 text-ellipsis"> {character.description}</p>
 				</article>
 			))
 		}
@@ -24,13 +33,17 @@ const characters = await fetch('https://dragonball-api.com/api/characters').then
 	section {
 		.dbz-card {
 			width: 300px;
-			height: 320px;
-			max-height: 320px;
+			height: 380px;
+			max-height: 380px;
 
 			padding: 1.25rem 1rem;
 
 			border-radius: 24px;
 			background: #f8f8f2;
+
+			&:hover {
+				box-shadow: 0px 2px 4px #c1c1c155;
+			}
 		}
 	}
 </style>
