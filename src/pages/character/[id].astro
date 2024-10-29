@@ -1,0 +1,16 @@
+---
+export const prerender = false;
+
+import CharacterCard from '../../components/CharacterCard.astro';
+import Layout from '../../layouts/Layout.astro';
+import type { Character } from '../../types/characters';
+const { id } = Astro.params;
+
+const character = await fetch(`https://dragonball-api.com/api/characters/${id}`).then(
+	async (response) => (await response.json()) as Character
+);
+---
+
+<Layout title={`${character.name} | DBZ Landing`}>
+	<CharacterCard character={character} />
+</Layout>
