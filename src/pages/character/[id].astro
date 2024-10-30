@@ -1,7 +1,6 @@
 ---
 export const prerender = false;
 
-import CharacterCard from '../../components/CharacterCard.astro';
 import Layout from '../../layouts/Layout.astro';
 import type { Character } from '../../types/characters';
 const { id } = Astro.params;
@@ -12,5 +11,35 @@ const character = await fetch(`https://dragonball-api.com/api/characters/${id}`)
 ---
 
 <Layout title={`${character.name} | DBZ Landing`}>
-	<CharacterCard character={character} />
+	<section class="container">
+		<article class="dbz-character">
+			<!-- IMAGEN -->
+			<img src={character.image} class="h-auto w-[240px] object-contain" />
+			<!-- TEXTO: (NOMBRE, KI, DESCRIPCIÓN) -->
+			<div class="flex-1 max-w-[640px]">
+				<h2 class="text-4xl font-semibold text-black">{character.name}</h2>
+				<ul class="px-1 py-2">
+					<li class="text-sm text-black/90">Ki: {character.ki}</li>
+					<li class="text-sm text-black/90">Ki máximo: {character.maxKi}</li>
+				</ul>
+				<p class="text-lg text-balance"> {character.description}</p>
+			</div>
+		</article>
+	</section>
 </Layout>
+
+<style>
+	.container {
+		width: 100%;
+		max-width: 1440px;
+		margin-inline: auto;
+		padding: 1.5rem 1rem;
+		.dbz-character {
+			width: 100%;
+
+			display: flex;
+			justify-content: center;
+			gap: 1rem /* 16px */;
+		}
+	}
+</style>
